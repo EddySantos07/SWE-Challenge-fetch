@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 
 import TextField from "@mui/material/TextField";
 
@@ -23,6 +24,10 @@ const Form = () => {
 
   const handleStateChange = (event) => {
     setCurrentState(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
   };
 
   useEffect(async () => {
@@ -49,45 +54,70 @@ const Form = () => {
             maxHeight: 600,
           }}
         >
-          <Stack justifyContent="center" alignItems="center" spacing={3}>
-            <TextField
-              required
-              id="outlined-required-name"
-              label="Required"
-              defaultValue="Full Name Here"
-            />
+          <form onSubmit={handleSubmit}>
+            <Stack justifyContent="center" alignItems="center" spacing={3}>
+              <TextField
+                required
+                id="outlined-required-name"
+                label="Required"
+                defaultValue="Full Name Here"
+              />
 
-            <TextField
-              required
-              id="outlined-required-email"
-              label="Required"
-              defaultValue="Email"
-            />
+              <TextField
+                required
+                id="outlined-required-email"
+                label="Required"
+                defaultValue="Email"
+              />
 
-            <TextField
-              id="outlined-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-            />
+              <TextField
+                required
+                label="Required"
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+              />
 
-            <TextField
-              id="outlined-select-occupation"
-              select
-              label="Select"
-              value={currentOccupation}
-              onChange={handleOccupationChange}
-              helperText="Please select your occupation"
-            >
-              {Array.isArray(listOccupations)
-                ? listOccupations.map((option, indx) => (
-                    <MenuItem key={indx} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))
-                : null}
-            </TextField>
-          </Stack>
+              <TextField
+                id="outlined-select-occupation"
+                select
+                label="Select"
+                value={currentOccupation}
+                onChange={handleOccupationChange}
+                helperText="Please select your occupation"
+              >
+                {Array.isArray(listOccupations)
+                  ? listOccupations.map((option, indx) => (
+                      <MenuItem key={indx} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))
+                  : null}
+              </TextField>
+
+              <TextField
+                id="outlined-select-state"
+                select
+                label="Select"
+                value={currentState}
+                onChange={handleStateChange}
+                helperText="Please select your state"
+              >
+                {Array.isArray(listStates)
+                  ? listStates.map((state, indx) => (
+                      <MenuItem key={indx} value={state.name}>
+                        {state.name}
+                      </MenuItem>
+                    ))
+                  : null}
+              </TextField>
+            </Stack>
+
+            <Button type="submit" variant="contained" color="success">
+              Submit
+            </Button>
+          </form>
         </Paper>
       </Box>
     </>
