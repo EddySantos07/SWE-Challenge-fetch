@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
 import TextField from "@mui/material/TextField";
 
@@ -16,6 +17,8 @@ const Form = () => {
 
   const [currentOccupation, setCurrentOccupation] = useState("");
   const [currentState, setCurrentState] = useState("");
+
+  const [successFullForm, setSuccessForm] = useState(null);
 
   const handleOccupationChange = (event) => {
     setCurrentOccupation(event.target.value);
@@ -53,6 +56,10 @@ const Form = () => {
       .post("https://frontend-take-home.fetchrewards.com/form", formData)
       .then((response) => {
         console.log("this is response", response);
+
+        if (response.status === 200) {
+          setSuccessForm(true);
+        }
       });
   };
 
@@ -149,6 +156,10 @@ const Form = () => {
               <Button type="submit" variant="contained" color="success">
                 Submit
               </Button>
+
+              {successFullForm !== null ? (
+                <Alert severity="success">Successfully submitted form!</Alert>
+              ) : null}
             </Stack>
           </form>
         </Paper>
