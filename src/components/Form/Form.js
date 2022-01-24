@@ -88,6 +88,10 @@ const Form = () => {
         >
           <form onSubmit={handleSubmit}>
             <Stack justifyContent="center" alignItems="center" spacing={3}>
+              {successFullForm !== null ? (
+                <Alert severity="success">Successfully submitted form!</Alert>
+              ) : null}
+              
               <TextField
                 required
                 label="Required"
@@ -156,10 +160,6 @@ const Form = () => {
               <Button type="submit" variant="contained" color="success">
                 Submit
               </Button>
-
-              {successFullForm !== null ? (
-                <Alert severity="success">Successfully submitted form!</Alert>
-              ) : null}
             </Stack>
           </form>
         </Paper>
