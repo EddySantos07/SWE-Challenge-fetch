@@ -15,5 +15,24 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
-  }
+  },
+  "name": "swe-challenge-fetch",
+  "description": "",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --mode development --watch",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EddySantos07/SWE-Challenge-fetch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EddySantos07/SWE-Challenge-fetch/issues"
+  },
+  "homepage": "https://github.com/EddySantos07/SWE-Challenge-fetch#readme"
 }
