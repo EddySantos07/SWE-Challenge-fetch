@@ -18,7 +18,6 @@ const Form = () => {
   const [currentState, setCurrentState] = useState("");
 
   const handleOccupationChange = (event) => {
-    console.log(event.target.value, "target value");
     setCurrentOccupation(event.target.value);
   };
 
@@ -28,6 +27,33 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // for (let i = 0; i < event.target.length; i++) {
+    //     console.log(event.target[i].value, "valuee");
+    // }
+
+    const data = new FormData(event.target);
+
+    const name = data.get("FullName");
+    const email = data.get("Email");
+    const password = data.get("password");
+    const occupation = data.get("occupation");
+    const state = data.get("state");
+
+    const formData = {
+      name,
+      email,
+      password,
+      occupation,
+      state,
+    };
+    console.log(formData);
+
+    axios
+      .post("https://frontend-take-home.fetchrewards.com/form", formData)
+      .then((response) => {
+        console.log("this is response", response);
+      });
   };
 
   useEffect(async () => {
@@ -36,7 +62,6 @@ const Form = () => {
     );
 
     const { occupations, states } = data.data;
-    console.log(occupations, states);
     setOccupations(occupations);
 
     setStates(states);
@@ -44,7 +69,7 @@ const Form = () => {
 
   return (
     <>
-      <Box component="form">
+      <Box>
         <Paper
           sx={{
             p: 2,
@@ -58,16 +83,18 @@ const Form = () => {
             <Stack justifyContent="center" alignItems="center" spacing={3}>
               <TextField
                 required
-                id="outlined-required-name"
                 label="Required"
-                defaultValue="Full Name Here"
+                id="outlined-required-name"
+                label="Full Name"
+                name="FullName"
               />
 
               <TextField
                 required
-                id="outlined-required-email"
                 label="Required"
-                defaultValue="Email"
+                id="outlined-required-email"
+                label="Email"
+                name="Email"
               />
 
               <TextField
@@ -77,15 +104,19 @@ const Form = () => {
                 label="Password"
                 type="password"
                 autoComplete="current-password"
+                name="password"
               />
 
               <TextField
+                required
+                label="Required"
                 id="outlined-select-occupation"
                 select
                 label="Select"
                 value={currentOccupation}
                 onChange={handleOccupationChange}
                 helperText="Please select your occupation"
+                name="occupation"
               >
                 {Array.isArray(listOccupations)
                   ? listOccupations.map((option, indx) => (
@@ -97,12 +128,15 @@ const Form = () => {
               </TextField>
 
               <TextField
+                required
+                label="Required"
                 id="outlined-select-state"
                 select
                 label="Select"
                 value={currentState}
                 onChange={handleStateChange}
                 helperText="Please select your state"
+                name="state"
               >
                 {Array.isArray(listStates)
                   ? listStates.map((state, indx) => (
@@ -112,11 +146,10 @@ const Form = () => {
                     ))
                   : null}
               </TextField>
+              <Button type="submit" variant="contained" color="success">
+                Submit
+              </Button>
             </Stack>
-
-            <Button type="submit" variant="contained" color="success">
-              Submit
-            </Button>
           </form>
         </Paper>
       </Box>
