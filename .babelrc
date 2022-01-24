@@ -1,0 +1,36 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": false }],
+    "@babel/preset-react"
+  ],
+
+  "plugins": [
+    // this is to use async / await
+    [
+      /* "transform-runtime",
+         i believe this has something to do with a version of babel which is not 
+         compatible with mine since -  "@babel/plugin-transform-runtime" works - 
+         https://github.com/babel/babel-loader/issues/560
+
+
+         If you're using Babel 7's Beta, you'll need to install and use the Babel 7 version of the plugins too, e.g.
+
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": false,
+    }],
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}
+
+        */
+      // {
+      //   "regenerator": true
+      // },
+      "@babel/plugin-transform-runtime"
+    ]
+  ]
+}
