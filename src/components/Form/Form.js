@@ -10,13 +10,14 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 
 const Form = () => {
-  const [occupations, setOccupations] = useState(null);
-  const [states, setStates] = useState(null);
+  const [listOccupations, setOccupations] = useState("");
+  const [listStates, setStates] = useState("");
 
-  const [currentOccupation, setCurrentOccupation] = useState(null);
-  const [currentState, setCurrentState] = useState(null);
+  const [currentOccupation, setCurrentOccupation] = useState("");
+  const [currentState, setCurrentState] = useState("");
 
   const handleOccupationChange = (event) => {
+    console.log(event.target.value, "target value");
     setCurrentOccupation(event.target.value);
   };
 
@@ -25,14 +26,16 @@ const Form = () => {
   };
 
   useEffect(async () => {
-    const { occupation, state } = await axios.get(
+    const data = await axios.get(
       "https://frontend-take-home.fetchrewards.com/form"
     );
 
-    setOccupations(occupation);
+    const { occupations, states } = data.data;
+    console.log(occupations, states);
+    setOccupations(occupations);
 
-    setStates(state);
-  });
+    setStates(states);
+  }, []);
 
   return (
     <>
@@ -72,15 +75,17 @@ const Form = () => {
               id="outlined-select-occupation"
               select
               label="Select"
-              //   value={currency}
+              value={currentOccupation}
               onChange={handleOccupationChange}
               helperText="Please select your occupation"
             >
-              {/* {occupations.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))} */}
+              {Array.isArray(listOccupations)
+                ? listOccupations.map((option, indx) => (
+                    <MenuItem key={indx} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))
+                : null}
             </TextField>
           </Stack>
         </Paper>
