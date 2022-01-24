@@ -6,4 +6,4 @@
 3) in another terminal - $npm run server
 3) open your browser to localhost:3000
 
-![](dist/screenshots/Form.png.png)
+![](dist/screenshots/Form.png)
